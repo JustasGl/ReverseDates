@@ -16,17 +16,18 @@ public class DateReverse {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-           ReverseDates(2010,2015);          
+       public static void main(String[] args) {
+           printBonusDatesBetween(2010,2015);          
     }
     
-     public static void ReverseDates(int from, int to)
+     public static void printBonusDatesBetween(int fromYear, int toYear)
     {
         char[] before;
         char[] after;
-        
+        char[] M = new char[2];
+        char[] D = new char[2];
         int[] days = {31,28,31,30,31,30,31,31,30,31,30,31};
-        for(int i=from; i<to; i++)
+        for(int i=fromYear; i<toYear; i++)
         {
             if(IsLeapYear(i))
                 days[1]=29;
@@ -37,11 +38,24 @@ public class DateReverse {
             {
                 for(int o=1; o<days[j]; o++)
                 {
+                    if(j<10)
+                        M = (0+""+j).toCharArray();
+                    else
+                        M = ("" + j).toCharArray();
+                    if(o<10)
+                        D=(0+""+o).toCharArray();
+                    else
+                        D=(o+"").toCharArray();
                     
-                    before = (i + "" + j+ "" + o).toCharArray();
+                    StringBuilder sb = new StringBuilder(64);
+                    sb.append(i);
+                    sb.append(M);
+                    sb.append(D);
+                    before = sb.toString().toCharArray();
+                    
                     after =  ReverseChar(before);
-                    if(Arrays.equals(before, ReverseChar(after)))
-                        System.out.println(i+"-"+j+"-"+o);
+                    if(Arrays.equals(before, after))
+                        System.out.println(i+"-"+""+j+"-"+o);
                 }
             }
         }
